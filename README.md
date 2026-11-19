@@ -1,66 +1,93 @@
 # QUIZIFY — Aplikasi Kuis Interaktif
 
-**QUIZIFY** adalah proyek aplikasi kuis edukatif berbasis Flutter yang terhubung dengan REST API Laravel. Aplikasi dirancang agar pengguna dapat memilih kuis, menjawab pertanyaan, melihat hasil, dan membandingkan skor pada leaderboard. Proyek ini juga mencakup pengelolaan template kuis dan pertanyaan untuk admin.
+**QUIZIFY** adalah proyek aplikasi kuis edukatif berbasis **Flutter** dengan backend **Laravel REST API**. Pengguna dapat menjelajahi kategori, mengerjakan kuis, melihat hasil, dan mengakses papan peringkat. Sistem ini juga menyediakan antarmuka pengelolaan template kuis dan pertanyaan untuk administrator.
 
-> **Status:** proyek pembelajaran/portofolio. Repository berisi aplikasi Flutter dan backend Laravel. Ketersediaan fitur di kode belum berarti seluruh alurnya telah diuji pada perangkat baru.
+> **Status:** proyek portofolio/pembelajaran. Screenshot berasal dari dokumentasi pengembangan aplikasi. Ketersediaan kode, rute, dan tampilan tidak dengan sendirinya menjamin seluruh fitur dapat berjalan tanpa konfigurasi lokal.
 
-## Fitur
+## Tampilan Aplikasi
+
+### Pengguna — mulai belajar hingga melihat hasil
+
+| Login | Registrasi | Beranda pengguna |
+|:---:|:---:|:---:|
+| <img src="docs/screenshots/login.png" width="225" alt="Tampilan login QUIZIFY"> | <img src="docs/screenshots/register.png" width="225" alt="Tampilan registrasi QUIZIFY"> | <img src="docs/screenshots/user-dashboard.png" width="225" alt="Dashboard pengguna QUIZIFY"> |
+
+| Pilih kuis | Kerjakan soal | Lihat hasil |
+|:---:|:---:|:---:|
+| <img src="docs/screenshots/quiz-list.png" width="225" alt="Daftar kuis berdasarkan kategori"> | <img src="docs/screenshots/quiz-session.png" width="225" alt="Antarmuka pengerjaan soal"> | <img src="docs/screenshots/quiz-result.png" width="225" alt="Ringkasan hasil kuis"> |
+
+**Leaderboard:** menampilkan peringkat peserta, sesuai tampilan yang didokumentasikan.
+
+<p align="center"><img src="docs/screenshots/leaderboard.png" width="250" alt="Tampilan leaderboard QUIZIFY"></p>
+
+### Administrator — pengelolaan konten kuis
+
+| Dashboard admin | Kelola kuis | Kelola soal |
+|:---:|:---:|:---:|
+| <img src="docs/screenshots/admin-dashboard.png" width="225" alt="Dashboard admin"> | <img src="docs/screenshots/admin-quizzes.png" width="225" alt="Daftar kuis di panel admin"> | <img src="docs/screenshots/admin-questions.png" width="225" alt="Daftar pertanyaan di panel admin"> |
+
+| Form tambah template | Form edit soal |
+|:---:|:---:|
+| <img src="docs/screenshots/admin-create-template.png" width="225" alt="Form tambah template kuis"> | <img src="docs/screenshots/admin-edit-question.png" width="225" alt="Form edit pertanyaan"> |
+
+## Fitur yang Terdokumentasi
 
 **Pengguna**
-- Registrasi dan login.
-- Melihat kategori serta template kuis.
-- Mengambil pertanyaan berdasarkan template kuis.
-- Mengirim hasil kuis setelah login.
-- Melihat leaderboard dan dashboard pengguna.
+- Registrasi, login, dan logout melalui endpoint autentikasi.
+- Melihat kategori, template, dan pertanyaan kuis.
+- Mengirim hasil pengerjaan kuis melalui endpoint yang membutuhkan autentikasi.
+- Mengakses dashboard pengguna dan leaderboard.
 
 **Admin**
-- Menambahkan, memperbarui, dan menghapus template kuis.
-- Menambahkan, memperbarui, dan menghapus pertanyaan template.
-- Endpoint pengelolaan admin dilindungi middleware `auth:sanctum` dan `admin`.
+- Mengelola template kuis (menambah, mengubah, menghapus).
+- Mengelola pertanyaan pada template kuis.
+- Rute pengelolaan template dan pertanyaan menggunakan middleware `auth:sanctum` dan `admin`.
 
-Daftar ini disusun dari rute backend dan metode pada klien Flutter. Detail tampilan serta keberhasilan alur end-to-end perlu diverifikasi melalui pengujian aplikasi.
+Fitur di atas dirangkum dari `routes/api.php`, implementasi klien Flutter, dan screenshot pengembangan; bukan klaim hasil pengujian end-to-end.
 
 ## Teknologi
 
 | Bagian | Teknologi |
-| --- | --- |
-| Aplikasi | Flutter, Dart |
-| State management dan navigasi | Provider, GoRouter |
+|---|---|
+| Aplikasi mobile | Flutter, Dart |
+| State management | Provider |
+| Navigasi | GoRouter |
 | HTTP client | `http` |
-| Backend API | PHP 8.2+, Laravel 12 |
+| Backend | PHP 8.2+, Laravel 12 |
 | Autentikasi API | Laravel Sanctum 4 |
-| Database | Konfigurasi Laravel; MySQL digunakan menurut deskripsi proyek, perlu disesuaikan dengan `.env` lokal |
+| Database | Mengikuti konfigurasi lokal Laravel; proyek dilaporkan menggunakan MySQL, tetapi pilihan database aktif tidak diverifikasi dari file konfigurasi yang diberikan |
 
-## Struktur proyek
+## Struktur Repository
 
 ```text
 QUIZIFY/
-├── lib/                   # Source code Flutter
-│   └── services/api/      # Klien REST API
-├── assets/                # Aset aplikasi
-├── android/               # Konfigurasi Android
-├── ios/                   # Konfigurasi iOS
-├── quizify_backend/       # Backend Laravel
-│   ├── app/
-│   ├── database/          # Migration dan seeder
-│   ├── routes/api.php     # Rute REST API
-│   ├── composer.json
-│   └── .env.example
+├── lib/                       # Source Flutter
+│   └── services/api/          # Panggilan HTTP ke Laravel
+├── assets/                    # Asset Flutter
+├── android/                   # Konfigurasi Android
+├── ios/                       # Konfigurasi iOS
+├── quizify_backend/           # Source Laravel
+│   ├── app/                   # Controller dan model
+│   ├── database/              # Migration dan seeder
+│   ├── routes/api.php         # REST API
+│   └── composer.json
+├── docs/screenshots/          # Screenshot proyek
 ├── pubspec.yaml
 └── README.md
 ```
 
-## Menjalankan secara lokal
+## Menjalankan Secara Lokal
 
 ### Prasyarat
+
 - Flutter SDK dengan Dart SDK yang kompatibel dengan `sdk: ^3.11.0` pada `pubspec.yaml`.
-- PHP 8.2 atau lebih baru dan Composer.
-- Server database sesuai konfigurasi Laravel lokal (misalnya MySQL).
-- Android Emulator atau perangkat yang telah dikonfigurasi untuk mengakses backend.
+- PHP 8.2 atau lebih tinggi dan Composer.
+- Database lokal sesuai pengaturan `.env` Laravel (MySQL atau driver lain yang benar-benar dikonfigurasi).
+- Android Emulator atau perangkat Android yang dapat mengakses server lokal.
 
-### 1. Siapkan backend
+### 1. Jalankan Laravel
 
-Dari direktori root repository:
+Di root repository, buka terminal:
 
 ```powershell
 cd quizify_backend
@@ -69,96 +96,55 @@ Copy-Item .env.example .env
 php artisan key:generate
 ```
 
-Periksa `.env` dan sesuaikan `DB_CONNECTION`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, serta `DB_PASSWORD` dengan database lokal. **Jangan mengunggah `.env` ke GitHub.** Setelah database tersedia:
+Atur variabel `DB_*` pada `.env` sesuai database milikmu. Buat databasenya terlebih dahulu jika diperlukan; **jangan gunakan `migrate:fresh` pada database berisi data penting**. Kemudian:
 
 ```powershell
 php artisan migrate
-php artisan serve --host=0.0.0.0 --port=8000
+php artisan serve --port=8000
 ```
 
-Jika proyek membutuhkan data awal, periksa terlebih dahulu isi seeder di `quizify_backend/database/seeders/` sebelum menjalankan `php artisan db:seed`.
+Jika membutuhkan data contoh, tinjau seeder di `database/seeders/` sebelum memilih menjalankannya. Jaga terminal server tetap terbuka.
 
-### 2. Siapkan Flutter
+### 2. Jalankan Flutter
 
-Buka terminal lain di root repository:
+Buka terminal baru di root repository:
 
 ```powershell
 flutter pub get
 flutter run
 ```
 
-Periksa `lib/services/api/quiz_api.dart` sebelum dijalankan. Untuk **Android Emulator**, alamat backend yang berjalan di komputer host biasanya:
+Pada Android Emulator standar, backend yang berjalan di komputer host biasanya dapat diakses melalui `http://10.0.2.2:8000`.
+
+Periksa alamat di `lib/services/api/quiz_api.dart`:
 
 ```dart
 static const String baseUrl = 'http://10.0.2.2:8000/api';
 ```
 
-Untuk **perangkat fisik**, ganti `10.0.2.2` dengan alamat IP komputer pada jaringan yang dapat dijangkau perangkat. Pastikan firewall, binding server, dan konfigurasi jaringan mengizinkan koneksi. Alamat `10.0.2.2` bukan alamat layanan publik.
+Pada file yang ditinjau sebelumnya, ada **karakter backtick tambahan sebelum `/api`**. Pastikan karakter tersebut tidak ada di source yang dijalankan. Untuk Android fisik, gunakan alamat IP laptop yang dapat diakses dari jaringan perangkat, bukan `10.0.2.2`.
 
-## Ringkasan endpoint API
+## Ringkasan REST API
 
-Semua path berikut relatif terhadap `/api`.
+Semua endpoint berikut diawali `/api`.
 
-| Metode | Endpoint | Akses berdasarkan rute |
-| --- | --- | --- |
+| Metode | Endpoint | Akses yang terlihat pada rute |
+|---|---|---|
 | POST | `/register`, `/login` | Publik |
 | POST | `/logout` | Sanctum |
-| GET | `/categories`, `/quiz-templates` | Publik |
+| GET | `/categories`, `/quiz-templates`, `/leaderboard` | Publik |
 | GET | `/template-questions/{quizTemplateId}` | Publik |
-| GET | `/leaderboard` | Publik |
 | POST | `/quiz-results` | Sanctum |
 | GET | `/user-dashboard` | Sanctum |
-| POST, PUT, DELETE | `/quiz-templates` dan `/quiz-templates/{id}` | Sanctum + admin |
-| POST, PUT, DELETE | `/template-questions` dan `/template-questions/{id}` | Sanctum + admin |
-| GET, POST, PUT, DELETE | `/quizzes` dan `/quizzes/{id}` | Tidak ada middleware eksplisit pada file rute |
-| GET | `/quizzes/{id}/play` | Tidak ada middleware eksplisit pada file rute |
+| POST, PUT, DELETE | `/quiz-templates`, `/quiz-templates/{id}` | Sanctum + admin |
+| POST, PUT, DELETE | `/template-questions`, `/template-questions/{id}` | Sanctum + admin |
+| GET, POST, PUT, DELETE | `/quizzes` dan `/quizzes/{id}` | Tidak terdapat middleware eksplisit pada file rute yang diperiksa |
+| GET | `/quizzes/{id}/play` | Tidak terdapat middleware eksplisit pada file rute yang diperiksa |
 
-**Catatan keamanan:** Endpoint mutasi `/quizzes` belum terlihat dilindungi middleware pada `routes/api.php` yang diperiksa. Perlu audit kebijakan otorisasi di controller sebelum backend dipublikasikan untuk penggunaan nyata.
-
-
-
-## Catatan pengembangan
-
-- API menduku## Tampilan Aplikasi
-
-### 1. Splash Screen
-![Splash Screen](docs/screenshots/splash-screen.png)
-
-### 2. Login
-![Login Screen](docs/screenshots/login-screen.png)
-
-### 3. Registrasi
-![Register Screen](docs/screenshots/register-screen.png)
-
-### 4. Dashboard Pengguna
-![User Dashboard](docs/screenshots/user-dashboard.png)
-
-### 5. Daftar Kuis
-![Quiz List Screen](docs/screenshots/quiz-list-screen.png)
-
-### 6. Pengerjaan Kuis
-![Quiz Screen](docs/screenshots/quiz-screen.png)
-
-### 7. Hasil Kuis
-![Result Screen](docs/screenshots/result-screen.png)
-
-### 8. Leaderboard
-![Leaderboard Screen](docs/screenshots/leaderboard-screen.png)
-
-### 9. Dashboard Admin
-![Admin Dashboard](docs/screenshots/admin-dashboard.png)
-
-### 10. Kelola Kuis
-![Admin Quiz](docs/screenshots/admin-quiz.png)
-
-### 11. Kelola Soal
-![Admin Soal](docs/screenshots/admin-soal.png)ng header `Authorization: Bearer <token>` untuk permintaan yang memerlukan login.
-- Respons dan format data dapat dilihat pada controller Laravel dan implementasi klien Flutter.
-- Untuk deployment produksi diperlukan konfigurasi HTTPS, variabel lingkungan yang aman, peninjauan hak akses endpoint, serta pengujian integrasi.
+> **Catatan keamanan:** rute mutasi `/quizzes` belum menampilkan middleware autentikasi pada `routes/api.php` yang ditinjau. Perlu memastikan kontrol otorisasi di controller atau lapisan lain sebelum backend dipublikasikan ke internet. Jangan mengunggah `.env`, credential, atau data pengguna nyata.
 
 ## Pengembang
 
 **Arlen Prima Dinova**  
-GitHub: [@arlendevID](https://github.com/arlendevID)
-
-Repository: https://github.com/arlendevID/QUIZIFY
+GitHub: [@arlendevID](https://github.com/arlendevID)  
+Repository: [QUIZIFY](https://github.com/arlendevID/QUIZIFY)
