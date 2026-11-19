@@ -1,0 +1,33 @@
+# Flutter
+.dart_tool/
+build/
+.idea/
+.flutter-plugins-dependencies
+
+# Laravel
+quizify_backend/.env
+quizify_backend/.env.*
+!quizify_backend/.env.example
+quizify_backend/vendor/
+quizify_backend/node_modules/
+
+# Sensitive files
+*.jks
+*.keystore
+key.properties
+google-services.json
+GoogleService-Info.plist
+
+# Local database
+*.sqlite
+*.sqlite-*
+*.db
+
+# Laravel generated cache
+quizify_backend/bootstrap/cache/*.php
+
+# Laravel runtime files
+quizify_backend/storage/logs/*
+quizify_backend/storage/framework/views/*
+!quizify_backend/storage/logs/.gitignore
+!quizify_backend/storage/framework/views/.gitignore
