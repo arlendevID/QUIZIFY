@@ -115,13 +115,44 @@ Semua path berikut relatif terhadap `/api`.
 
 **Catatan keamanan:** Endpoint mutasi `/quizzes` belum terlihat dilindungi middleware pada `routes/api.php` yang diperiksa. Perlu audit kebijakan otorisasi di controller sebelum backend dipublikasikan untuk penggunaan nyata.
 
-## Dokumentasi tampilan
 
-Screenshot asli aplikasi akan ditambahkan setelah dikumpulkan, misalnya: halaman login, kategori kuis, pengerjaan soal, hasil kuis, leaderboard, dan panel admin. Bagian ini sengaja belum menggunakan gambar contoh agar tidak menampilkan tampilan yang tidak sesuai implementasi.
 
 ## Catatan pengembangan
 
-- API mendukung header `Authorization: Bearer <token>` untuk permintaan yang memerlukan login.
+- API menduku## Tampilan Aplikasi
+
+### 1. Splash Screen
+![Splash Screen](docs/screenshots/splash-screen.png)
+
+### 2. Login
+![Login Screen](docs/screenshots/login-screen.png)
+
+### 3. Registrasi
+![Register Screen](docs/screenshots/register-screen.png)
+
+### 4. Dashboard Pengguna
+![User Dashboard](docs/screenshots/user-dashboard.png)
+
+### 5. Daftar Kuis
+![Quiz List Screen](docs/screenshots/quiz-list-screen.png)
+
+### 6. Pengerjaan Kuis
+![Quiz Screen](docs/screenshots/quiz-screen.png)
+
+### 7. Hasil Kuis
+![Result Screen](docs/screenshots/result-screen.png)
+
+### 8. Leaderboard
+![Leaderboard Screen](docs/screenshots/leaderboard-screen.png)
+
+### 9. Dashboard Admin
+![Admin Dashboard](docs/screenshots/admin-dashboard.png)
+
+### 10. Kelola Kuis
+![Admin Quiz](docs/screenshots/admin-quiz.png)
+
+### 11. Kelola Soal
+![Admin Soal](docs/screenshots/admin-soal.png)ng header `Authorization: Bearer <token>` untuk permintaan yang memerlukan login.
 - Respons dan format data dapat dilihat pada controller Laravel dan implementasi klien Flutter.
 - Untuk deployment produksi diperlukan konfigurasi HTTPS, variabel lingkungan yang aman, peninjauan hak akses endpoint, serta pengujian integrasi.
 
